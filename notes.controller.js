@@ -22,6 +22,13 @@ async function getNotes() {
   const notes = JSON.parse(raw);
   return Array.isArray(notes) ? notes : [];
 }
+async function deleteNoteById(id) {
+  const notes = await getNotes();
+
+  const filteredNotes = notes.filter(note => note.id !== id);
+  await fs.writeFile(NOTES_PATH, JSON.stringify(filteredNotes));
+  console.log(chalk.bgGreen("Note was deleted"));
+}
 async function printNotes(params) {
   const notes = await getNotes();
 
@@ -31,4 +38,4 @@ async function printNotes(params) {
   });
 }
 
-module.exports = { addNote, printNotes };
+module.exports = { addNote, printNotes, deleteNoteById };
