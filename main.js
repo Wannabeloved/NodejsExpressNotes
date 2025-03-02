@@ -29,7 +29,7 @@ yargs.command({
 });
 
 yargs.command({
-  command: "delete",
+  command: "remove",
   describe: "Delete note by id",
   builder: {
     id: {
