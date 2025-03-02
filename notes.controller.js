@@ -32,9 +32,9 @@ async function deleteNoteById(id) {
 async function printNotes(params) {
   const notes = await getNotes();
 
-  console.log(chalk.bgBlue("List of notes:"));
+  console.log(chalk.bgBlue("Here is the list of notes:"));
   notes.forEach(note => {
-    console.log(chalk.blue(note.title));
+    console.log(chalk.italic(note.id), chalk.blue(note.title));
   });
 }
 
