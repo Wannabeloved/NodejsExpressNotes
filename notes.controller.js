@@ -5,11 +5,11 @@ const chalk = require("chalk");
 // const notes = [{ title: "first note", id: "1" }];
 const NOTES_PATH = path.join(__dirname, "db.json");
 
-async function addNote(title) {
+async function addNote(title, { id } = {}) {
   const notes = await getNotes();
   const note = {
     title,
-    id: Date.now().toString(),
+    id: id ?? Date.now().toString(),
   };
 
   notes.push(note);
@@ -29,13 +29,15 @@ async function deleteNoteById(id) {
   await fs.writeFile(NOTES_PATH, JSON.stringify(filteredNotes));
   console.log(chalk.bgGreen("Note was deleted"));
 }
-async function printNotes() {
+async function updateNote(id, updatedData) {
   const notes = await getNotes();
+  if (!notes.find(note => note.id === id))
+    throw new Error(`Note with id ${id} not found`);
 
-  console.log(chalk.bgBlue("Here is the list of notes:"));
-  notes.forEach(note =>
-    console.log(chalk.italic(note.id), chalk.blue(note.title))
-  );
+  const title = updatedData.title.toString().trim();
+  if (title == "") throw new Error("Title cannot be empty");
+  await deleteNoteById(id);
+  return await addNote(title, { id });
 }
 
-module.exports = { addNote, printNotes, deleteNoteById };
+module.exports = { addNote, getNotes, deleteNoteById, updateNote };
