@@ -1,2 +1,2 @@
-Если вы хотите передать флаг в эту утилиту, вроде `npm run start --help` - npm перехватит этот флаг и решит, что это вы с ним разговариваете. Можно кинуть ему `--` (пустой флаг) и тогда остальсые аргументы передадутся куда надо:
-`npm start -- --help`
+Simple notes web application was founded on [my nodejs cli notes app](https://github.com/Wannabeloved/NodejsCLINotes).
+Nodejs HTTP (Express) server & ejs + bootstrap front
