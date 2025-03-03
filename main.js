@@ -1,46 +1,12 @@
-const yargs = require("yargs");
-const pckg = require("./package.json");
+const http = require("http");
+const chalk = require("chalk");
 
-const { addNote, printNotes, deleteNoteById } = require("./notes.controller");
+const PORT = 3000;
 
-yargs.version(pckg.version);
-
-yargs.command({
-  command: "add",
-  describe: "Add a new note to list",
-  builder: {
-    title: {
-      type: "string",
-      describe: "Note title",
-      demandOption: true,
-    },
-  },
-  async handler({ title }) {
-    await addNote(title);
-  },
+const server = http.createServer((req, res) => {
+  res.end("Hello World!");
 });
 
-yargs.command({
-  command: "list",
-  describe: "Print all notes",
-  async handler() {
-    await printNotes();
-  },
-});
-
-yargs.command({
-  command: "remove",
-  describe: "Delete note by id",
-  builder: {
-    id: {
-      type: "string",
-      describe: "Note id",
-      demandOption: true,
-    },
-  },
-  async handler({ id }) {
-    await deleteNoteById(id);
-  },
-});
-
-yargs.parse();
+server.listen(PORT, () =>
+  console.log(chalk.green(`Server is running on http://localhost:${PORT}`))
+);

@@ -1,13 +1,17 @@
 {
-  "name": "nodejsclinotes",
-  "version": "1.1.0",
+  "name": "nodejshttpnotes",
+  "version": "0.1.0",
   "main": "main.js",
   "scripts": {
-    "start": "node main",
+    "start": "node --watch main",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "nodejs",
+    "http",
+    "notes"
+  ],
+  "author": "Artemii Rachev <quzyboy@gmail.com>",
   "license": "ISC",
   "type": "commonjs",
   "description": "",
