@@ -2,7 +2,6 @@ const fs = require("fs/promises");
 const path = require("path");
 const chalk = require("chalk");
 
-// const notes = [{ title: "first note", id: "1" }];
 const NOTES_PATH = path.join(__dirname, "db.json");
 
 async function addNote(title, { id } = {}) {

@@ -1,4 +1,6 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const Note = require("./models/Note");
 const chalk = require("chalk");
 const path = require("path");
 const {
@@ -47,6 +49,13 @@ app.put("/:id", async (req, res) => {
   return await res.end(result);
 });
 
-app.listen(PORT, () =>
-  console.log(chalk.green(`Server is running on http://localhost:${PORT}`))
-);
+mongoose
+  .connect("mongodb://user:mongopass@localhost:27017/notes?authSource=admin")
+  .then(async () => {
+    await Note.create({ title: "Hello World!" });
+  })
+  .then(() =>
+    app.listen(PORT, () =>
+      console.log(chalk.green(`Server is running on http://localhost:${PORT}`))
+    )
+  );
