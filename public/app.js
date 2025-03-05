@@ -52,7 +52,7 @@ async function editHandler(event) {
   const titleElement$ = await getContainer(event).querySelector(
     "[data-type=title]"
   );
-  const oldTitle = titleElement$.textContent;
+  const oldTitle = titleElement$.textContent.trim();
   const newTitle = prompt("Enter new title", oldTitle);
   titleElement$.textContent = newTitle;
 
