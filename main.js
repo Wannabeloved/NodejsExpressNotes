@@ -1,6 +1,5 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const Note = require("./models/Note");
 const chalk = require("chalk");
 const path = require("path");
 const {
@@ -34,26 +33,26 @@ app.delete("/:id", async (req, res) => {
     created: false,
   });
 });
-app.post("/notes", async (req, res) => {
+app.post("/", async (req, res) => {
   const title = req.body.title;
-  await addNote(title);
+  const isCreated = await addNote(title)
+    .then(el => (el ? true : false))
+    .catch(() => "error");
   return res.render("index", {
     title: "Notes App",
     notes: await getNotes(),
-    created: true,
+    created: isCreated,
   });
 });
 app.put("/:id", async (req, res) => {
   console.log(req.body);
   const result = await updateNote(req.params.id, req.body);
-  return await res.end(result);
+  return await (res.setHeader("Content-Type", "application/json"),
+  res.end(JSON.stringify(result)));
 });
 
 mongoose
   .connect("mongodb://user:mongopass@localhost:27017/notes?authSource=admin")
-  .then(async () => {
-    await Note.create({ title: "Hello World!" });
-  })
   .then(() =>
     app.listen(PORT, () =>
       console.log(chalk.green(`Server is running on http://localhost:${PORT}`))
