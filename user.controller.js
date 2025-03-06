@@ -9,4 +9,12 @@ async function addUser(email, password) {
   return res;
 }
 
-module.exports = { addUser };
+async function loginUser(email, password) {
+  const userFromDB = await User.findOne({ email });
+  if (!userFromDB) throw new Error("User not found");
+
+  const isValid = await bcrypt.compare(password, userFromDB.password);
+  return isValid;
+}
+
+module.exports = { addUser, loginUser };

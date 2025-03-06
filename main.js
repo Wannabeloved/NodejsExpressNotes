@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const chalk = require("chalk");
 const path = require("path");
-const { addUser } = require("./user.controller");
+const { addUser, loginUser } = require("./user.controller");
 const {
   addNote,
   getNotes,
@@ -28,9 +28,32 @@ app.get("/register", async (req, res) => {
 app.post("/register", async (req, res) => {
   try {
     await addUser(req.body.email, req.body.password);
-    return res.redirect("/login");
+    res.redirect("/login");
   } catch (err) {
-    return res.render("register", {
+    if (err.code === 11000)
+      res.render("register", {
+        title: "Notes App",
+        error: "User already exists",
+      });
+    else
+      res.render("register", {
+        title: "Notes App",
+        error: err.message,
+      });
+  }
+});
+app.get("/login", async (req, res) => {
+  return res.render("login", {
+    title: "Notes App",
+    error: undefined,
+  });
+});
+app.post("/login", async (req, res) => {
+  try {
+    await loginUser(req.body.email, req.body.password);
+    res.redirect("/");
+  } catch (err) {
+    res.render("login", {
       title: "Notes App",
       error: err.message,
     });
@@ -40,6 +63,7 @@ app.get("/", async (req, res) => {
   return res.render("index", {
     title: "Notes App",
     notes: await getNotes(),
+    user: req.user || null,
     created: false,
     error: undefined,
   });
