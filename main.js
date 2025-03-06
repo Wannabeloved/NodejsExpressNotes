@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const chalk = require("chalk");
 const path = require("path");
+const { addUser } = require("./user.controller");
 const {
   addNote,
   getNotes,
@@ -18,11 +19,29 @@ app.set("views", "pages");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get("/register", async (req, res) => {
+  return res.render("register", {
+    title: "Notes App",
+    error: undefined,
+  });
+});
+app.post("/register", async (req, res) => {
+  try {
+    await addUser(req.body.email, req.body.password);
+    return res.redirect("/login");
+  } catch (err) {
+    return res.render("register", {
+      title: "Notes App",
+      error: err.message,
+    });
+  }
+});
 app.get("/", async (req, res) => {
   return res.render("index", {
     title: "Notes App",
     notes: await getNotes(),
     created: false,
+    error: undefined,
   });
 });
 app.delete("/:id", async (req, res) => {
