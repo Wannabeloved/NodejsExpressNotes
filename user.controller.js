@@ -1,7 +1,7 @@
 const User = require("./models/User");
 const bcrypt = require("bcrypt");
-
-const SALT_ROUNDS = 10;
+const jwt = require("jsonwebtoken");
+const { JWT_SECRET, SALT_ROUNDS } = require("./constants");
 
 async function addUser(email, password) {
   const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
@@ -14,7 +14,7 @@ async function loginUser(email, password) {
   if (!userFromDB) throw new Error("User not found");
 
   const isValid = await bcrypt.compare(password, userFromDB.password);
-  return isValid;
+  return jwt.sign({ email }, JWT_SECRET, { expiresIn: "30d" });
 }
 
 module.exports = { addUser, loginUser };
