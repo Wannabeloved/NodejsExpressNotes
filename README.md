@@ -16,13 +16,7 @@ git clone https://github.com/Wannabeloved/NodejsExpressNotes
 cd NodejsExpressNotes
 ```
 
-2. Copy the environment variables example file:
-
-```bash
-cp .env.example .env
-```
-
-3. Start the application using Docker Compose:
+2. Start the application using Docker Compose:
 
 ```bash
 docker compose up -d
