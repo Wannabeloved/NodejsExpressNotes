@@ -1,80 +1,89 @@
 # Notes App
 
-Simple notes web application who was founded on [my nodejs cli notes app](https://github.com/Wannabeloved/NodejsCLINotes).
-Nodejs HTTP (Express) server & ejs + bootstrap front
-Простое веб-приложение для создания и управления заметками с аутентификацией пользователей.
+A web application for creating and managing notes with user authentication. This project evolved from [my nodejs cli notes app](https://github.com/Wannabeloved/NodejsCLINotes), transforming it into a full-featured web application using Node.js (Express) server with EJS templating engine and Bootstrap for the frontend.
 
-## Требования
+## Requirements
 
 - Docker
 - Docker Compose
 
-## Установка и запуск
+## Installation and Launch
 
-1. Клонируйте репозиторий:
+1. Clone the repository:
 
 ```bash
 git clone <your-repo-url>
 cd <repo-folder>
 ```
 
-2. Запустите приложение с помощью Docker Compose:
+2. Start the application using Docker Compose:
 
 ```bash
 docker compose up -d
 ```
 
-После запуска:
+After launch:
 
-- Веб-приложение будет доступно по адресу: http://localhost:3000
-- MongoDB будет доступна по адресу: mongodb://localhost:27017
+- Web application will be available at: http://localhost:3000
+- MongoDB will be available at: mongodb://localhost:27017
 
-## Подключение к MongoDB через Compass
+## Connecting to MongoDB via Compass
 
-Если вы хотите подключиться к базе данных через MongoDB Compass, используйте следующую строку подключения:
+If you want to connect to the database using MongoDB Compass, use the following connection string:
 
 ```
 mongodb://root:example@localhost:27017/notes?authSource=admin
 ```
 
-Учетные данные по умолчанию:
+Default credentials:
 
-- Пользователь: root
-- Пароль: example
-- База данных: notes
+- Username: root
+- Password: example
+- Database: notes
 - Auth Database: admin
 
-## Функциональность
+## Features
 
-- Регистрация и авторизация пользователей
-- Создание, просмотр, редактирование и удаление заметок
-- Каждый пользователь видит только свои заметки
-- Защищенные маршруты с помощью JWT-токенов
+- User registration and authentication
+- Create, view, edit, and delete notes
+- Each user sees only their own notes
+- Protected routes using JWT tokens
+- Responsive Bootstrap UI
+- Data persistence using MongoDB
 
-## Разработка
+## Development
 
-Если вы хотите внести изменения в код:
+If you want to make changes to the code:
 
-1. Остановите контейнеры:
+1. Stop the containers:
 
 ```bash
 docker compose down
 ```
 
-2. Внесите необходимые изменения
+2. Make your changes
 
-3. Пересоберите и запустите контейнеры:
+3. Rebuild and start the containers:
 
 ```bash
 docker compose up -d --build
 ```
 
-## Важные замечания
+## Important Notes
 
-1. В продакшене рекомендуется изменить:
+1. For production, it's recommended to change:
 
-   - Пароль для MongoDB (в compose.yaml)
-   - JWT_SECRET в constants.js
-   - Использовать безопасное хранение секретов
+   - MongoDB password (in compose.yaml)
+   - JWT_SECRET in constants.js
+   - Use secure secret storage
 
-2. Данные MongoDB сохраняются в Docker volume, поэтому они сохранятся даже после перезапуска контейнеров
+2. MongoDB data is stored in a Docker volume, so it persists even after container restarts
+
+## Tech Stack
+
+- Backend: Node.js with Express
+- Database: MongoDB
+- View Engine: EJS
+- Frontend: Bootstrap
+- Authentication: JWT
+- Containerization: Docker & Docker Compose
