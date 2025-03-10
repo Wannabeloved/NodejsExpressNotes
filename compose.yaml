@@ -5,8 +5,8 @@ services:
     build: .
     ports:
       - "3000:3000"
-    environment:
-      - MONGODB_URI=mongodb://root:example@mongodb:27017/notes?authSource=admin
+    volumes:
+      - ./.env:/usr/src/app/.env
     depends_on:
       - mongodb
     networks:

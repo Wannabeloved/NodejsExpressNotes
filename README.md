@@ -16,7 +16,13 @@ git clone <your-repo-url>
 cd <repo-folder>
 ```
 
-2. Start the application using Docker Compose:
+2. Copy the environment variables example file:
+
+```bash
+cp .env.example .env
+```
+
+3. Start the application using Docker Compose:
 
 ```bash
 docker compose up -d
@@ -26,6 +32,18 @@ After launch:
 
 - Web application will be available at: http://localhost:3000
 - MongoDB will be available at: mongodb://localhost:27017
+
+## Environment Variables
+
+The project uses environment variables for configuration. Example values are provided in `.env.example`:
+
+```
+JWT_SECRET=secret        # Secret key for JWT tokens
+SALT_ROUNDS=10          # Number of salt rounds for password hashing
+MONGODB_URI=...         # MongoDB connection string
+```
+
+For development and demonstration purposes, you can use these values as is by copying `.env.example` to `.env`. In production, you should change these values and use proper secret management.
 
 ## Connecting to MongoDB via Compass
 
