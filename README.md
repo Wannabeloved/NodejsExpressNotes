@@ -12,8 +12,8 @@ A web application for creating and managing notes with user authentication. This
 1. Clone the repository:
 
 ```bash
-git clone <your-repo-url>
-cd <repo-folder>
+git clone https://github.com/Wannabeloved/NodejsExpressNotes
+cd NodejsExpressNotes
 ```
 
 2. Start the application using Docker Compose:
